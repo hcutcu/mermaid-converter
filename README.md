@@ -75,11 +75,7 @@ const outputPNGFile = path.join(**dirname, 'output_directory/output.png');
 convertMermaidToPNG(inputMarkdownFile, outputPNGFile);
 ```
 
-### Example
-
-npm run convert
-
-Project Structure
+### Project Structure
 
 ```bash
 mermaid-converter/
@@ -103,9 +99,8 @@ The compiled JavaScript files will be available in the dist directory.
 
 Dependencies
 
-- @mermaid-js/mermaid-cli: Command-line interface for Mermaid, used for converting diagrams.
-- typescript: A strongly typed programming language that builds on JavaScript, used in this project.
-- ts-node: TypeScript execution environment and REPL for Node.js.
+- `@mermaid-js/mermaid-cli`: Command-line interface for Mermaid, used for converting diagrams.
+- `typescript` and `ts-node`
 
 ### License
 
@@ -113,4 +108,4 @@ This project is licensed under the ISC License.
 
 ### Author
 
-This project was created by @hcutcu.
+This project was created by [Hasan Cutcu](https://github.com/hcutcu). Feel free to contribute or open issues if you find any problems..
