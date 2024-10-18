@@ -1,0 +1,25 @@
+{
+  "name": "mermaid-converter",
+  "version": "1.0.0",
+  "description": "Convert Mermaid diagrams from Markdown to PNG",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "convert": "ts-node src/index.ts"
+  },
+  "keywords": [
+    "mermaid",
+    "markdown",
+    "png",
+    "converter"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^11.2.1",
+    "@types/node": "^22.7.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  }
+}
