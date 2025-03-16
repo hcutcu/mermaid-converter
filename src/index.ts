@@ -72,7 +72,7 @@ const outputPNGFile = path.join(__dirname, '..', 'output.png');
 convertMermaidToPNG(
   inputMarkdownFile,
   outputPNGFile,
-  4, // Higher scale factor for better quality
+  3, // Higher scale factor for better quality
   'white' // Background color (optional)
 ).catch(console.error);
 
