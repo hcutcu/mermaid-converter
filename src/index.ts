@@ -44,13 +44,13 @@ async function convertMermaidToPNG(
 
     // Convert Mermaid to PNG using the CLI with enhanced settings
     const command = `npx mmdc \
-    -i ${tempFile} \
-    -o ${outputFile} \
-    -c ${configFile} \
-    -b ${backgroundColor} \
-    --width ${config.width} \
-    --height ${config.height} \
-    --scale ${scale}`;
+      -i ${tempFile} \
+      -o ${outputFile} \
+      -c ${configFile} \
+      -b transparent \
+      --width ${config.width} \
+      --height ${config.height} \
+      --scale ${scale}`;
 
     await execPromise(command);
 
