@@ -5,7 +5,12 @@ import util from 'util';
 
 const execPromise = util.promisify(exec);
 
-async function convertMermaidToPNG(inputFile: string, outputFile: string): Promise<void> {
+async function convertMermaidToPNG(
+  inputFile: string,
+  outputFile: string,
+  scale: number = 3, // Default scale factor
+  backgroundColor: string = 'transparent'
+): Promise<void> {
   try {
     // Read the Markdown file
     const mdContent = await fs.readFile(inputFile, 'utf-8');
@@ -24,17 +29,38 @@ async function convertMermaidToPNG(inputFile: string, outputFile: string): Promi
     const tempFile = path.join(__dirname, '..', 'temp_mermaid.mmd');
     await fs.writeFile(tempFile, mermaidCode);
 
-    // Convert Mermaid to PNG using the CLI
-    const command = `npx mmdc -i ${tempFile} -o ${outputFile} -b transparent`;
-    
+    // Configuration for high-quality output
+    const config = {
+      theme: 'default',
+      backgroundColor,
+      scale, // Increase scale for higher resolution
+      width: 1920, // Set base width
+      height: 1080, // Set base height
+    };
+
+    // Create temporary config file
+    const configFile = path.join(__dirname, '..', 'mermaid.config.json');
+    await fs.writeFile(configFile, JSON.stringify(config));
+
+    // Convert Mermaid to PNG using the CLI with enhanced settings
+    const command = `npx mmdc \
+    -i ${tempFile} \
+    -o ${outputFile} \
+    -c ${configFile} \
+    -b ${backgroundColor} \
+    --width ${config.width} \
+    --height ${config.height} \
+    --scale ${scale}`;
+
     await execPromise(command);
 
-    // Clean up the temporary file
-    await fs.unlink(tempFile);
+    // Clean up temporary files
+    await Promise.all([fs.unlink(tempFile), fs.unlink(configFile)]);
 
-    console.log(`Mermaid diagram saved as PNG: ${outputFile}`);
+    console.log(`High-resolution Mermaid diagram saved as PNG: ${outputFile}`);
   } catch (error) {
     console.error('Error:', error);
+    throw error;
   }
 }
 
@@ -42,4 +68,13 @@ async function convertMermaidToPNG(inputFile: string, outputFile: string): Promi
 const inputMarkdownFile = path.join(__dirname, '..', 'input.md');
 const outputPNGFile = path.join(__dirname, '..', 'output.png');
 
-convertMermaidToPNG(inputMarkdownFile, outputPNGFile);
+// Convert with custom settings
+convertMermaidToPNG(
+  inputMarkdownFile,
+  outputPNGFile,
+  4, // Higher scale factor for better quality
+  'white' // Background color (optional)
+).catch(console.error);
+
+// You can also use default settings
+// convertMermaidToPNG(inputMarkdownFile, outputPNGFile);
