@@ -47,7 +47,7 @@ async function convertMermaidToPNG(
       -i ${tempFile} \
       -o ${outputFile} \
       -c ${configFile} \
-      -b transparent \
+      -b ${backgroundColor} \
       --width ${config.width} \
       --height ${config.height} \
       --scale ${scale}`;
@@ -73,7 +73,7 @@ convertMermaidToPNG(
   inputMarkdownFile,
   outputPNGFile,
   3, // Higher scale factor for better quality
-  'white' // Background color (optional)
+  'transparent' // Background color (optional)
 ).catch(console.error);
 
 // You can also use default settings
